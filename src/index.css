@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 12, 29;
+  --background-end-rgb: 15, 18, 36;
+}
+
+html,
+body {
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* RTL/LTR support */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
+
+/* Table direction fixes */
+[dir="rtl"] table {
+  text-align: right;
+}
+
+[dir="ltr"] table {
+  text-align: left;
+}
+
+[dir="rtl"] th,
+[dir="rtl"] td {
+  text-align: right;
+}
+
+[dir="ltr"] th,
+[dir="ltr"] td {
+  text-align: left;
+}
+
+/* Center aligned cells should remain centered regardless of direction */
+.text-center {
+  text-align: center !important;
+}
+
+/* Language-specific font families */
+[lang="ar"] {
+  font-family: 'Tajawal', sans-serif;
+}
+
+[lang="en"] {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+[lang="ku"] {
+  font-family: 'Tajawal', 'Noto Sans', sans-serif;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    )
+    fixed;
+  min-height: 100vh;
+}
+
+/* RTL-specific adjustments */
+[dir="rtl"] .space-x-4 > * + * {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .space-x-reverse > * + * {
+  margin-left: 1rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* LTR-specific adjustments */
+[dir="ltr"] .space-x-4 > * + * {
+  margin-left: 1rem;
+  margin-right: 0;
+}
+
+[dir="ltr"] .flex-row {
+  flex-direction: row;
+}
+
+/* Pagination direction fixes */
+[dir="rtl"] .pagination {
+  flex-direction: row-reverse;
+}
+
+[dir="ltr"] .pagination {
+  flex-direction: row;
+}
+
+@layer components {
+  .stats-card {
+    @apply relative bg-opacity-10 rounded-xl p-4 overflow-hidden transition-all duration-300;
+  }
+  
+  .stats-card:hover {
+    @apply bg-opacity-20 shadow-lg transform -translate-y-1;
+  }
+  
+  .quick-access-item {
+    @apply flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-dark-200 hover:bg-dark-100 transition-all cursor-pointer;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center p-3 rounded-lg gap-3 text-gray-300 hover:bg-dark-200 transition-all;
+  }
+  
+  .sidebar-item.active {
+    @apply bg-primary-600 text-white;
+  }
+}
+
+/* Add smooth transitions for sidebar elements */
+.sidebar-transition {
+  transition: all 0.3s ease-in-out;
+}
