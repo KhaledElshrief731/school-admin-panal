@@ -520,13 +520,18 @@
     "success": {
       "created": "Notification created successfully",
       "updated": "Notification updated successfully",
-      "deleted": "Notification deleted successfully"
+      "deleted": "Notification deleted successfully",
+      "resent": "Notification resent successfully"
     },
     "error": {
       "createFailed": "Failed to create notification",
       "updateFailed": "Failed to update notification",
-      "deleteFailed": "Failed to delete notification"
-    }
+      "deleteFailed": "Failed to delete notification",
+      "resendFailed": "Failed to resend notification"
+    },
+    "resend": "Resend",
+    "allLanguages": "All Languages",
+    "schedule": "Schedule"
   },
   "school": {
     "pageTitle": "School Page",
@@ -670,13 +675,18 @@
     "success": {
       "created": "Ad created successfully",
       "updated": "Ad updated successfully",
-      "deleted": "Ad deleted successfully"
+      "deleted": "Ad deleted successfully",
+      "resent": "Ad resent successfully"
     },
     "error": {
       "createFailed": "Failed to create ad",
       "updateFailed": "Failed to update ad",
-      "deleteFailed": "Failed to delete ad"
-    }
+      "deleteFailed": "Failed to delete ad",
+      "resendFailed": "Failed to resend ad"
+    },
+    "resend": "Resend",
+    "allLanguages": "All Languages",
+    "schedule": "Schedule"
   },
   "subscriptions": {
     "title": "Subscriptions Management",

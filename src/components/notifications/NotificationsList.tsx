@@ -13,6 +13,7 @@ import {
   CheckCircle, 
   Settings 
 } from 'lucide-react';
+import NotificationActions from './NotificationActions';
 
 interface Notification {
   id: string;
@@ -211,20 +212,11 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => onView(notification.id)}
-                      className="p-2 text-gray-400 hover:text-white hover:bg-dark-300 rounded-lg transition-colors"
-                      title={t('common.view')}
-                    >
-                      <Eye className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => onEdit(notification.id)}
-                      className="p-2 text-blue-400 hover:text-blue-300 hover:bg-dark-300 rounded-lg transition-colors"
-                      title={t('common.edit')}
-                    >
-                      <Edit className="w-4 h-4" />
-                    </button>
+                    <NotificationActions
+                      notificationId={notification.id}
+                      onView={onView}
+                      size="sm"
+                    />
                     {notification.status === 'unread' && (
                       <button
                         onClick={() => onMarkAsRead(notification.id)}
@@ -235,11 +227,11 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
                       </button>
                     )}
                     <button
-                      onClick={() => onDelete(notification.id)}
-                      className="p-2 text-error-400 hover:text-error-300 hover:bg-dark-300 rounded-lg transition-colors"
-                      title={t('common.delete')}
+                      onClick={() => onEdit(notification.id)}
+                      className="p-2 text-blue-400 hover:text-blue-300 hover:bg-dark-300 rounded-lg transition-colors"
+                      title={t('common.edit')}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Edit className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

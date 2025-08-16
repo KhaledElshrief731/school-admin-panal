@@ -64,4 +64,13 @@ export interface AdsState {
   totalPages: number;
   createLoading: boolean;
   createError: string | null;
+  selectedAd: any | null;
+  selectedAdLoading: boolean;
+  selectedAdError: string | null;
+  resendLoading: boolean;
+  resendError: string | null;
+  resendSuccess: boolean;
+  removeLoading: boolean;
+  removeError: string | null;
+  removeSuccess: boolean;
 }

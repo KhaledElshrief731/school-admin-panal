@@ -9,8 +9,10 @@ import {
   NotificationsList,
   AddNotificationForm,
   NotificationTabs,
-  NotificationStats
+  NotificationStats,
+  NotificationActions
 } from '../components/notifications';
+import ViewNotificationModal from '../components/notifications/ViewNotificationModal';
 
 const Notifications: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -31,6 +33,8 @@ const Notifications: React.FC = () => {
   const [selectedNotifications, setSelectedNotifications] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(10);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [selectedNotificationId, setSelectedNotificationId] = useState<string | null>(null);
 
   const mappedNotifications = notifications.map(notification => ({
     id: notification.id,
@@ -191,8 +195,9 @@ const Notifications: React.FC = () => {
     console.log('Edit notification:', id);
   };
 
-  const handleView = (id: string) => {
-    console.log('View notification:', id);
+  const handleViewNotification = (id: string) => {
+    setSelectedNotificationId(id);
+    setIsViewModalOpen(true);
   };
 
   const handleResetForm = () => {
@@ -274,7 +279,7 @@ const Notifications: React.FC = () => {
                 onDeleteSelected={handleDeleteSelected}
                 onMarkAsRead={handleMarkAsRead}
                 onEdit={handleEdit}
-                onView={handleView}
+                onView={handleViewNotification}
                 onDelete={(id) => console.log('Delete', id)}
               />
             )}
@@ -292,6 +297,15 @@ const Notifications: React.FC = () => {
           />
         )}
       </div>
+
+      <ViewNotificationModal
+        isOpen={isViewModalOpen}
+        onClose={() => {
+          setIsViewModalOpen(false);
+          setSelectedNotificationId(null);
+        }}
+        notificationId={selectedNotificationId}
+      />
     </div>
   );
 };

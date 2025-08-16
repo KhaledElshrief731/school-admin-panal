@@ -8,15 +8,18 @@ import {
   AdsFilters,
   AdsStats,
   AddAdModal,
+  AdActions,
 } from '../components/ads';
+import ViewAdModal from '../components/ads/ViewAdModal';
 import Table, { TableColumn } from '../components/ui/Table';
 import Pagination from '../components/ui/Pagination';
 import { Ad } from '../types/ads';
-import { Eye, Trash2 } from 'lucide-react';
+import { useAds } from '../hooks/useAds';
 
 const Ads: React.FC = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
+  const { getAdById } = useAds();
 
   const { ads, loading, error, totalItems, totalPages } = useSelector(
     (state: RootState) => state.ads
@@ -27,13 +30,18 @@ const Ads: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(10);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [selectedAdId, setSelectedAdId] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(fetchAds({ page: currentPage, pageSize, type: 'APP_ADS' }));
   }, [dispatch, currentPage, pageSize]);
 
-  const handleView = (id: string) => { console.log('View ad:', id); };
-  const handleDelete = (id: string) => { console.log('Delete ad:', id); };
+  const handleView = async (id: string) => {
+    setSelectedAdId(id);
+    setIsViewModalOpen(true);
+  };
+
   const handleAddNew = () => { setIsAddModalOpen(true); };
   const handleSearchChange = (value: string) => { setSearchTerm(value); setCurrentPage(1); };
   const handleStatusChange = (value: string) => { setStatusFilter(value); setCurrentPage(1); };
@@ -154,22 +162,11 @@ const Ads: React.FC = () => {
       key: 'actions',
       title: t('ads.table.actions'),
       render: (_, record) => (
-        <div className="flex space-x-2 rtl:space-x-reverse">
-          <button
-            onClick={() => handleView(record.id)}
-            className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
-            title={t('common.view')}
-          >
-            <Eye className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => handleDelete(record.id)}
-            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
-            title={t('common.delete')}
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
+        <AdActions
+          adId={record.id}
+          onView={handleView}
+          size="sm"
+        />
       )
     },
   ];
@@ -238,6 +235,15 @@ const Ads: React.FC = () => {
        <AddAdModal
          isOpen={isAddModalOpen}
          onClose={() => setIsAddModalOpen(false)}
+       />
+
+       <ViewAdModal
+         isOpen={isViewModalOpen}
+         onClose={() => {
+           setIsViewModalOpen(false);
+           setSelectedAdId(null);
+         }}
+         adId={selectedAdId}
        />
      </div>
    );
